@@ -1,0 +1,25 @@
+title: "kat"
+description: "Cybersec and other Stuff"
+url: "https://katiemeows.github.io"
+baseurl: ""
+
+author:
+  name: "kat"
+  email: "katiemeows@proton.me"
+
+permalink: /writeups/:title/
+timezone: Europe/Vienna
+markdown: kramdown
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

@@ -1,0 +1,33 @@
+---
+layout: default
+title:
+description: "Cybersecurity research, technical write-ups, and notes from the lab."
+---
+
+{% assign markdown_articles = site.posts | where_exp: "article", "article.path contains '.md'" %}
+
+<section class="hero shell">
+  <h1>Cybersecurity notes</h1>
+  <p>Research, write-ups, and technical notes.</p>
+</section>
+
+<section class="notes-section shell" aria-labelledby="notes-title">
+  <div class="section-heading">
+    <h2 id="notes-title">Articles</h2>
+  </div>
+
+  {% if markdown_articles.size > 0 %}
+    <ol class="post-list">
+      {% for post in markdown_articles %}
+        <li class="post-row">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <div class="empty-state">
+      <p>No articles yet.</p>
+    </div>
+  {% endif %}
+</section>

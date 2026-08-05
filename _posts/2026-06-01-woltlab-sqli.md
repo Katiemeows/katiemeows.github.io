@@ -261,3 +261,15 @@ Thats the endgame.
 
 ![rce1]({{ 'assets/img/woltlab-rce1.png' | relative_url }})
 ![rce2]({{ 'assets/img/woltlab-rce2.png' | relative_url }})
+
+## Aftermath
+
+After confirming impact, I reached out to the vendor and they quickly responded and provided a 
+patch fixing this bug shortly after, its a crazy world we live in and you never know what 
+critical bugs might be hiding in every day software we use, this bug in particular has been present 
+since the earliest release, going back over 15 years! This finding also led me to continue 
+research into this fascinating piece of software, and find another even more critical bug, 
+of which i will write another article in the future.
+
+MITRE assigned it [CVE-2026-52630](https://www.cve.org/CVERecord?id=CVE-2026-52630), 
+making it my first CVE, yay :)

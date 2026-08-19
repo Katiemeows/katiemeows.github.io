@@ -18,7 +18,7 @@ description: "About kat."
 
   <h2>Contact</h2>
 
-  You can reach me at [katiemeows@proton.me](mailto:katiemeows@proton.me) for questions or business inquiries.
+  You can reach me at [kat@katiemeo.ws](mailto:kat@katiemeo.ws) for questions or business inquiries.
 
   <h2>About this site</h2>
 

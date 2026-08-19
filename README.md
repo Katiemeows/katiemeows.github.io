@@ -1,12 +1,8 @@
-# kat
-
-A cybersecurity research site built with Jekyll and designed for GitHub Pages. Articles are plain Markdown files; the site itself has no runtime dependencies, database, or admin panel.
+# My page
 
 ## Make it yours
 
-Edit `_config.yml` to change the site title, description, name, and email. Then update `about.md` with your own introduction and links.
-
-The main colors are CSS variables at the top of `assets/css/site.css` if you want a different palette.
+Edit `_config.yml` to change the site title, description, name, and email. 
 
 ## Publish a new article
 
@@ -42,15 +38,6 @@ bundle exec jekyll serve
 ```
 
 Then open `http://localhost:4000`.
-
-## Publish on GitHub Pages
-
-1. Create a GitHub repository. Naming it `yourusername.github.io` gives you the cleanest URL.
-2. Push these files to the repository's `main` branch.
-3. In the repository, open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**, then select `main` and `/ (root)`.
-
-If you use a normal repository name such as `my-blog`, set `baseurl: "/my-blog"` in `_config.yml` before publishing. The site will be available at `https://yourusername.github.io/my-blog/`.
 
 ## Add a custom domain later
 

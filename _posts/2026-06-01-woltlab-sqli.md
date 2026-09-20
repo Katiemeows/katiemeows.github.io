@@ -271,5 +271,5 @@ since the earliest release, going back over 15 years! This finding also led me t
 research into this fascinating piece of software, and find another even more critical bug, 
 of which i will write another article in the future.
 
-MITRE assigned it [CVE-2026-52630](https://www.cve.org/CVERecord?id=CVE-2026-52630), 
+MITRE assigned it [CVE-2026-52630](https://www.tenable.com/cve/CVE-2026-52630), 
 making it my first CVE, yay :)

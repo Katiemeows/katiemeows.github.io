@@ -1,5 +1,5 @@
 ---
-title: "How I Hacked My First Real World Target! Account Takeover on Forum Software"
+title: "CVE-2026-52630: SQL Injection to Account Takeover and RCE in WoltLab Suite"
 ---
 
 Recently, I was messing around with stuff, as one does. And what was 
@@ -7,7 +7,7 @@ supposed to be a small side-quest with maybe some low impact findings, turned ou
 rabbit hole going much deeper than I had initially suspected. While talking to one of my friends, 
 he nudged me toward this weird 
 [Forum software](https://github.com/WoltLab/WCF), 
-I never heard of it before, but I took a look, huh, seems like its not that unpopular after all? 
+I never heard of it before, but I took a look, huh, seems like it's not that unpopular after all? 
 
 ![List of Customers]({{ '/assets/img/woltlab-customers.png' | relative_url}})
 ## The Bug
@@ -48,7 +48,7 @@ I quickly found this function:
     }
 ```
 This function is responsible for updating the Values in the DB that belong to our User, 
-inside the DB the data is structured as colums of `userOption`'s, so `userOption1` maps to 
+inside the DB the data is structured as columns of `userOption`'s, so `userOption1` maps to 
 your `aboutMe` field while `userOption2` is your `birthday` field, as defined in `UserOption.xml`:
 
 ```xml
@@ -80,7 +80,7 @@ type `int`, so we can't do much here. Or can we?
 ![If nobody got me, Ajax does]({{ '/assets/img/woltlab-ajax.png' | relative_url }})
 
 While in most modern software, you'd expect a rest api, here we have a ajax proxy, which is 
-reachable under `/ajax-proxy.php` and its basically just a dynamic dispatcher for defined Actions:
+reachable under `/ajax-proxy.php` and it's basically just a dynamic dispatcher for defined Actions:
 
 ```php
     protected function invoke()
@@ -99,7 +99,7 @@ reachable under `/ajax-proxy.php` and its basically just a dynamic dispatcher fo
 ```
 
 In our request to the ajax proxy we define which Action of which Class we want to hit, and it 
-will validate and later execute it assuming we have the correct priviledges. And to our luck, 
+will validate and later execute it assuming we have the correct privileges. And to our luck, 
 there is a seemingly leftover unused Action in `UserAction.class.php` that trickles straight 
 into the vulnerable `updateUserOptions()`:
 
@@ -231,7 +231,7 @@ instead and later have our malicious payload:
 parameters[options][1 = ((SELECT DATABASE())), userOption2]=x
 ```
 
-become interpretted as: 
+become interpreted as: 
 
 ```sql
 UPDATE wcf1_user_option_value
@@ -244,18 +244,18 @@ at which point we can exfiltrate database values by directly updating our own us
 
 ## The Endgame
 
-That on its own, is pretty bad! We can exfiltrate all database values we could dream of, 
+That on it's own, is pretty bad! We can exfiltrate all database values we could dream of, 
 maybe crack some hashes, steal session tokens, but honestly, thats quite a lot of effort 
 when we have a much easier way.
 
 We've all been there, we want to log into our favourite Woltlab Forum, but inconveniently our 
 dementia progressed far enough for us to forget our email AND password, luckily to us, we can still 
 request a password reset off of our username alone! When we do this, a 20Byte Key gets stored 
-in the DB, and we can use our arb DB read to exfiltrate it, afterwards its as simple as restoring 
+in the DB, and we can use our arb DB read to exfiltrate it, afterwards it's as simple as restoring 
 the valid password reset url, and then we get to set a new password for the victim User. 
 
 If the Forum instance is self hosted, we can now overtake the admin account, 
-and install a malicious php extension to get rce on the server its running on.
+and install a malicious php extension to get rce on the server it's running on.
 
 Thats the endgame. 
 
@@ -265,7 +265,7 @@ Thats the endgame.
 ## Aftermath
 
 After confirming impact, I reached out to the vendor and they quickly responded and provided a 
-patch fixing this bug shortly after, its a crazy world we live in and you never know what 
+patch fixing this bug shortly after, it's a crazy world we live in and you never know what 
 critical bugs might be hiding in every day software we use, this bug in particular has been present 
 since the earliest release, going back over 15 years! This finding also led me to continue 
 research into this fascinating piece of software, and find another even more critical bug, 

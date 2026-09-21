@@ -5,6 +5,9 @@ description: "Cybersecurity research, technical write-ups, and notes from the la
 ---
 
 {% assign markdown_articles = site.posts | where_exp: "article", "article.path contains '.md'" %}
+{% assign pinned_articles = markdown_articles | where: "pinned", true | sort: "date" | reverse %}
+{% assign regular_articles = markdown_articles | where_exp: "article", "article.pinned != true" | sort: "date" | reverse %}
+{% assign ordered_articles = pinned_articles | concat: regular_articles %}
 
 <section class="hero shell">
   <h1>Kat's blog</h1>
@@ -16,12 +19,12 @@ description: "Cybersecurity research, technical write-ups, and notes from the la
     <h2 id="notes-title">Articles</h2>
   </div>
 
-  {% if markdown_articles.size > 0 %}
+  {% if ordered_articles.size > 0 %}
     <ol class="post-list">
-      {% for post in markdown_articles %}
-        <li class="post-row">
+      {% for post in ordered_articles %}
+        <li class="post-row{% if pinned_articles.size > 0 and forloop.index0 == pinned_articles.size %} after-pins{% endif %}">
           <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.pinned %} <span class="pinned-label">Pinned</span>{% endif %}</h3>
         </li>
       {% endfor %}
     </ol>

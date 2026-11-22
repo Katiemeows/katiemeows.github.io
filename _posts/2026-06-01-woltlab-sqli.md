@@ -1,5 +1,5 @@
 ---
-title: "CVE-2026-52630: SQL Injection to Account Takeover and RCE in WoltLab Suite"
+title: "CVE-2026-52630: SQL Injection to Account Takeover in WoltLab Suite"
 ---
 
 Recently, I was messing around with stuff, as one does. And what was 
